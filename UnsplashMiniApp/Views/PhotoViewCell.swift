@@ -10,9 +10,9 @@ import SDWebImage
 
 class PhotoViewCell: UICollectionViewCell {
     
-    var unsplashPhoto: PhotoResult! {
+    var picture: PhotoResult! {
         didSet {
-            let photoUrl = unsplashPhoto.urls["regular"]
+            let photoUrl = picture.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
             photoImageView.sd_setImage(with: url, completed: nil)
         }

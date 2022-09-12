@@ -9,11 +9,11 @@ import UIKit
 
 class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
+    private let cellId = "cellId"
+    
     var networkDataFetcher = DataFetcher()
     
     private var pictures = [PhotoResult]()
-    
-    private let cellId = "cellId"
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -34,8 +34,6 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     private func setupCollectionView() {
         collectionView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: cellId)
-        
-        // futher add gesture
     }
     
     private func setupSearchBar() {
@@ -53,8 +51,8 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchRes) in
                 guard let fetchedPhotos = searchRes else { return }
+                self?.pictures = fetchedPhotos.results
                 DispatchQueue.main.async {
-                    self?.pictures = fetchedPhotos.results
                     self?.collectionView.reloadData()
                 }
             }
@@ -64,7 +62,10 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     // MARK: - UICollectionView Delegate and DataSource methods
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        /// ???
+        let detailController = DetailViewController()
+        let picture = self.pictures[indexPath.item]
+        detailController.picture = picture
+        navigationController?.pushViewController(detailController, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -73,8 +74,8 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
-        let photo = pictures[indexPath.item]
-        cell.unsplashPhoto = photo
+        let picture = pictures[indexPath.item]
+        cell.picture = picture
         return cell
     }
     

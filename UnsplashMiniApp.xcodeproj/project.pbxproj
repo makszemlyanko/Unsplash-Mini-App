@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		153429EE28CF64EA00E1FBE8 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429ED28CF64EA00E1FBE8 /* SearchResult.swift */; };
 		153429F128CF659D00E1FBE8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429F028CF659D00E1FBE8 /* NetworkManager.swift */; };
 		153429F428CF68D900E1FBE8 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429F328CF68D900E1FBE8 /* DataFetcher.swift */; };
+		153429FB28CF7B9200E1FBE8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429FA28CF7B9200E1FBE8 /* DetailViewController.swift */; };
 		155F735228CE3117007EEF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F735128CE3117007EEF5C /* AppDelegate.swift */; };
 		155F735428CE3117007EEF5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F735328CE3117007EEF5C /* SceneDelegate.swift */; };
 		155F735B28CE3119007EEF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155F735A28CE3119007EEF5C /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		153429ED28CF64EA00E1FBE8 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		153429F028CF659D00E1FBE8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		153429F328CF68D900E1FBE8 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
+		153429FA28CF7B9200E1FBE8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		155F734E28CE3117007EEF5C /* UnsplashMiniApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashMiniApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155F735128CE3117007EEF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		155F735328CE3117007EEF5C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				155F736D28CE3200007EEF5C /* MainTabBarController.swift */,
 				155F737C28CE371B007EEF5C /* PhotoViewController.swift */,
 				155F737F28CE3742007EEF5C /* SavedViewController.swift */,
+				153429FA28CF7B9200E1FBE8 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -157,7 +160,6 @@
 				C92E087128C582CAC6A00CAD /* Pods-UnsplashMiniApp.debug.xcconfig */,
 				CD9020D31B610157193B60C2 /* Pods-UnsplashMiniApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -275,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				153429FB28CF7B9200E1FBE8 /* DetailViewController.swift in Sources */,
 				153429F128CF659D00E1FBE8 /* NetworkManager.swift in Sources */,
 				155F735228CE3117007EEF5C /* AppDelegate.swift in Sources */,
 				153429EB28CF61A000E1FBE8 /* PhotoViewCell.swift in Sources */,

@@ -29,7 +29,7 @@ class NetworkManager {
         var param = [String: String]()
         param["query"] = searchTerm
         param["page"] = String(1)
-        param["per_page"] = String(50)
+        param["per_page"] = String(30)
         return param
     }
     
