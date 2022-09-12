@@ -12,6 +12,6 @@ class SavedViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.backgroundColor = .blue
+        collectionView.backgroundColor = .systemPink
     }
 }

@@ -18,12 +18,14 @@
                         <viewLayoutGuide key="safeArea" id="CVI-Je-gkM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="BpY-oO-6NW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZmU-bR-ZsV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="251" y="-84"/>
+            <point key="canvasLocation" x="2784.057971014493" y="-55.580357142857139"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.50321412089999995" green="6.4757732620000002e-05" blue="0.50313830380000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

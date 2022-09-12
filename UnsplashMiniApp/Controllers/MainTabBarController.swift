@@ -19,6 +19,8 @@ class MainTabBarController: UITabBarController {
         
         setupViewControllers()
         setTabBarAppearance()
+        
+        #warning("add bottom padding to tabBar")
     }
     
     private func createNavController(viewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
@@ -35,7 +37,7 @@ class MainTabBarController: UITabBarController {
         let photoController = PhotoViewController(collectionViewLayout: layout)
 
         viewControllers = [
-            createNavController(viewController: photoController, title: "Photo", image: UIImage(systemName: "photo.fill")),
+            createNavController(viewController: photoController, title: "Pictures", image: UIImage(systemName: "photo.fill")),
             createNavController(viewController: savedController, title: "Saved", image: UIImage(systemName: "star.fill"))
         ]
     }
