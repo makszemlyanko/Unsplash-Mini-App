@@ -12,13 +12,14 @@
 		153429F128CF659D00E1FBE8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429F028CF659D00E1FBE8 /* NetworkManager.swift */; };
 		153429F428CF68D900E1FBE8 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429F328CF68D900E1FBE8 /* DataFetcher.swift */; };
 		153429FB28CF7B9200E1FBE8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153429FA28CF7B9200E1FBE8 /* DetailViewController.swift */; };
+		15342A1A28D1BE6700E1FBE8 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15342A1928D1BE6700E1FBE8 /* UserDefaults.swift */; };
 		155F735228CE3117007EEF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F735128CE3117007EEF5C /* AppDelegate.swift */; };
 		155F735428CE3117007EEF5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F735328CE3117007EEF5C /* SceneDelegate.swift */; };
 		155F735B28CE3119007EEF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155F735A28CE3119007EEF5C /* Assets.xcassets */; };
 		155F736E28CE3200007EEF5C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F736D28CE3200007EEF5C /* MainTabBarController.swift */; };
 		155F737D28CE371B007EEF5C /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F737C28CE371B007EEF5C /* PhotoViewController.swift */; };
 		155F738028CE3742007EEF5C /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F737F28CE3742007EEF5C /* SavedViewController.swift */; };
-		155F738328CE387C007EEF5C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F738228CE387C007EEF5C /* Extensions.swift */; };
+		155F738328CE387C007EEF5C /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F738228CE387C007EEF5C /* UIColor.swift */; };
 		15B8094928CE5EC300771CDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B8094828CE5EC300771CDF /* Main.storyboard */; };
 		15B8094D28CE5EE500771CDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */; };
 		9E5A80CE2F9DFD1CC3F03406 /* Pods_UnsplashMiniApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3D9672E421CD012DE1E3BA /* Pods_UnsplashMiniApp.framework */; };
@@ -30,6 +31,7 @@
 		153429F028CF659D00E1FBE8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		153429F328CF68D900E1FBE8 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
 		153429FA28CF7B9200E1FBE8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		15342A1928D1BE6700E1FBE8 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		155F734E28CE3117007EEF5C /* UnsplashMiniApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashMiniApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155F735128CE3117007EEF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		155F735328CE3117007EEF5C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,7 +40,7 @@
 		155F736D28CE3200007EEF5C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		155F737C28CE371B007EEF5C /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		155F737F28CE3742007EEF5C /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
-		155F738228CE387C007EEF5C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		155F738228CE387C007EEF5C /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		15B8094828CE5EC300771CDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C92E087128C582CAC6A00CAD /* Pods-UnsplashMiniApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashMiniApp.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashMiniApp/Pods-UnsplashMiniApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,7 +134,8 @@
 		155F736A28CE31AF007EEF5C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				155F738228CE387C007EEF5C /* Extensions.swift */,
+				155F738228CE387C007EEF5C /* UIColor.swift */,
+				15342A1928D1BE6700E1FBE8 /* UserDefaults.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -282,9 +285,10 @@
 				155F735228CE3117007EEF5C /* AppDelegate.swift in Sources */,
 				153429EB28CF61A000E1FBE8 /* PhotoViewCell.swift in Sources */,
 				153429EE28CF64EA00E1FBE8 /* SearchResult.swift in Sources */,
-				155F738328CE387C007EEF5C /* Extensions.swift in Sources */,
+				155F738328CE387C007EEF5C /* UIColor.swift in Sources */,
 				153429F428CF68D900E1FBE8 /* DataFetcher.swift in Sources */,
 				155F737D28CE371B007EEF5C /* PhotoViewController.swift in Sources */,
+				15342A1A28D1BE6700E1FBE8 /* UserDefaults.swift in Sources */,
 				155F735428CE3117007EEF5C /* SceneDelegate.swift in Sources */,
 				155F738028CE3742007EEF5C /* SavedViewController.swift in Sources */,
 				155F736E28CE3200007EEF5C /* MainTabBarController.swift in Sources */,

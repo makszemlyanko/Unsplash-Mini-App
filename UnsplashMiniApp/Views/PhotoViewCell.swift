@@ -10,9 +10,9 @@ import SDWebImage
 
 class PhotoViewCell: UICollectionViewCell {
     
-    var picture: PhotoResult! {
+    var picture: PhotoResult? {
         didSet {
-            let photoUrl = picture.urls["regular"]
+            let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
             photoImageView.sd_setImage(with: url, completed: nil)
         }
@@ -25,7 +25,7 @@ class PhotoViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 6
         return imageView
     }()
     

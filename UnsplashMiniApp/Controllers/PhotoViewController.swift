@@ -15,6 +15,8 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     private var pictures = [PhotoResult]()
     
+    private var likedPictures = UserDefaults.standard.likedPictures()
+    
     private let searchController = UISearchController(searchResultsController: nil)
     
     private var timer: Timer?
@@ -23,11 +25,10 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         super.viewDidLoad()
         setupSearchBar()
         searchBar(searchController.searchBar, textDidChange: "Ted")
-        
         setupCollectionView()
-        
-        
     }
+    
+   
     
     // MARK: - Setup SearchBar and CollectionView
     
@@ -40,7 +41,6 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         definesPresentationContext = true
         navigationItem.searchController = self.searchController
         navigationItem.searchController?.searchBar.tintColor = UIColor.tabBarItemAccent
-        navigationController?.navigationBar.tintColor = UIColor.tabBarItemAccent; #warning ("doesnt work")
         navigationItem.hidesSearchBarWhenScrolling = false
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
@@ -49,9 +49,9 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchRes) in
-                guard let fetchedPhotos = searchRes else { return }
-                self?.pictures = fetchedPhotos.results
+            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
+                guard let fetchedPictures = searchResult else { return }
+                self?.pictures = fetchedPictures.results
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
@@ -69,30 +69,28 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        pictures.count
+        self.pictures.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
-        let picture = pictures[indexPath.item]
+        let picture = self.pictures[indexPath.item]
         cell.picture = picture
         return cell
     }
-    
-
 }
 
 extension PhotoViewController: UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 3 * 16) / 2
         return CGSize(width: width, height: width)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        return UIEdgeInsets(top: 16, left: 16, bottom: 32, right: 16)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         16
     }

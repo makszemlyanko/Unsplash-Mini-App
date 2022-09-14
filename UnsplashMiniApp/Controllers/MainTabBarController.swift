@@ -11,7 +11,6 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         tabBar.backgroundImage = UIImage()
         tabBar.backgroundColor = .clear
@@ -26,19 +25,19 @@ class MainTabBarController: UITabBarController {
     private func createNavController(viewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
         navController.navigationBar.prefersLargeTitles = true
+        navController.navigationBar.tintColor = UIColor.tabBarItemAccent
         viewController.navigationItem.title = title
         navController.tabBarItem.image = image
         return navController
     }
 
     private func setupViewControllers() {
-        let layout = UICollectionViewFlowLayout()
-        let savedController = SavedViewController(collectionViewLayout: layout)
-        let photoController = PhotoViewController(collectionViewLayout: layout)
+        let photoController = PhotoViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let savedController = SavedViewController(collectionViewLayout: UICollectionViewFlowLayout())
 
         viewControllers = [
             createNavController(viewController: photoController, title: "Pictures", image: UIImage(systemName: "photo.fill")),
-            createNavController(viewController: savedController, title: "Saved", image: UIImage(systemName: "star.fill"))
+            createNavController(viewController: savedController, title: "Favorites", image: UIImage(systemName: "heart.fill"))
         ]
     }
     

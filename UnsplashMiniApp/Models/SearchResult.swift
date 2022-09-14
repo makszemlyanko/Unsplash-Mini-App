@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct SearchResult: Decodable {
+struct SearchResult: Codable {
     let total: Int
     let results: [PhotoResult]
 }
 
-struct PhotoResult: Decodable {
+struct PhotoResult: Codable {
     let width: Int
     let height: Int
     let urls: [UrlKind.RawValue: String]
