@@ -11,6 +11,8 @@ extension UserDefaults {
     
     static let likedPicturesKey = "likedPicturesKey"
     
+    static let savedSearchQueryKey = "savedSearchQueryKey"
+    
     func likedPictures() -> [PhotoResult] {
         guard let likedPicturesData = UserDefaults.standard.data(forKey: UserDefaults.likedPicturesKey) else { return [] }
         
@@ -37,6 +39,6 @@ extension UserDefaults {
             print("Failed to delete picture from UserDefaults: ", error)
         }
     }
-
+    
 }
 

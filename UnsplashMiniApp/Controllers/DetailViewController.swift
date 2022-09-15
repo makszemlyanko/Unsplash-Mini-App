@@ -27,6 +27,12 @@ class DetailViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         view.addSubview(imageView)
         setupImageViewLayout()
+//        setupNavBarButtons()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setupNavBarButtons()
     }
     
@@ -60,9 +66,6 @@ class DetailViewController: UIViewController {
             listOfPictures.append(picture)
             let picturesData = try JSONEncoder().encode(listOfPictures)
             UserDefaults.standard.setValue(picturesData, forKey: UserDefaults.likedPicturesKey)
-            let alertController = UIAlertController(title: "Saved", message: "This picture has been saved to favorites", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true, completion: nil)
         } catch {
             print("Failed to save picture to UserDefaults :", error)
         }
@@ -77,7 +80,6 @@ class DetailViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (_) in
             UserDefaults.standard.deletePicture(picture: picture)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(self.handleSaveToFavorites))
-            self.navigationController?.popViewController(animated: true)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)

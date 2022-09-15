@@ -24,11 +24,10 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-        searchBar(searchController.searchBar, textDidChange: "Ted")
+        searchBar(searchController.searchBar, textDidChange: "Porsche")
+    
         setupCollectionView()
     }
-    
-   
     
     // MARK: - Setup SearchBar and CollectionView
     
@@ -59,7 +58,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         })
     }
     
-    // MARK: - UICollectionView Delegate and DataSource methods
+        // MARK: - UICollectionView Delegate and DataSource methods
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailController = DetailViewController()
