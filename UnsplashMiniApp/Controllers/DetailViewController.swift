@@ -80,6 +80,7 @@ class DetailViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (_) in
             UserDefaults.standard.deletePicture(picture: picture)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(self.handleSaveToFavorites))
+            self.navigationController?.popViewController(animated: true)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)

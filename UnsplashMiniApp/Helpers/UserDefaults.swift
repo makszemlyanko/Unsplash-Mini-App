@@ -11,7 +11,7 @@ extension UserDefaults {
     
     static let likedPicturesKey = "likedPicturesKey"
     
-    static let savedSearchQueryKey = "savedSearchQueryKey"
+    static let previousSearchQueryKey = "savedSearchQueryKey"
     
     func likedPictures() -> [PhotoResult] {
         guard let likedPicturesData = UserDefaults.standard.data(forKey: UserDefaults.likedPicturesKey) else { return [] }
@@ -40,5 +40,16 @@ extension UserDefaults {
         }
     }
     
+    func savedSearchQuery() -> Set<String> {
+        guard let savedQueryData = UserDefaults.standard.data(forKey: UserDefaults.previousSearchQueryKey) else { return Set<String>() }
+        
+        do {
+            guard let searchQuery = try JSONDecoder().decode(Set<String>?.self, from: savedQueryData) else { return Set<String>() }
+            return searchQuery
+        } catch {
+            print("Failed to get previous search query: ", error)
+        }
+        return savedSearchQuery()
+    }
 }
 

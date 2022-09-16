@@ -13,6 +13,8 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     var networkDataFetcher = DataFetcher()
     
+    private var previousSearchQuery: Set<String> = UserDefaults.standard.savedSearchQuery()
+    
     private var pictures = [PhotoResult]()
     
     private var likedPictures = UserDefaults.standard.likedPictures()
@@ -24,9 +26,12 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-        searchBar(searchController.searchBar, textDidChange: "Porsche")
-    
+        searchBar(searchController.searchBar, textDidChange: randomSearchQuery())
         setupCollectionView()
+    }
+    
+    private func randomSearchQuery() -> String {
+        self.previousSearchQuery.randomElement() ?? ""
     }
     
     // MARK: - Setup SearchBar and CollectionView
@@ -48,6 +53,17 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            searchBar.autocorrectionType = .yes
+            if searchText != "" && searchText.count > 3 {
+                do {
+                    var listOfSearchQuery = UserDefaults.standard.savedSearchQuery()
+                    listOfSearchQuery.insert(searchText)
+                    let searchQuaeryData = try JSONEncoder().encode(listOfSearchQuery)
+                    UserDefaults.standard.setValue(searchQuaeryData, forKey: UserDefaults.previousSearchQueryKey)
+                } catch {
+                    print("Failed to save data to UserDefaults: ", error)
+                }
+            }
             self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
                 guard let fetchedPictures = searchResult else { return }
                 self?.pictures = fetchedPictures.results
