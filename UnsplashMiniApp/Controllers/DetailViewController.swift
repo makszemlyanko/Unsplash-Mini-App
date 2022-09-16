@@ -18,6 +18,18 @@ class DetailViewController: UIViewController {
         }
     }
     
+    private lazy var likedBarButtonItem: UIBarButtonItem = {
+        UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(handleDeleteFromFavorites))
+    }()
+    
+    private lazy var notLikedBarButtonItem: UIBarButtonItem = {
+        UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(handleSaveToFavorites))
+    }()
+    
+    private lazy var saveBarButtonItem: UIBarButtonItem = {
+        UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveToLocalLibrary))
+    }()
+    
     private var likedPictures = UserDefaults.standard.likedPictures()
     
     private let imageView = UIImageView()
@@ -27,35 +39,25 @@ class DetailViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         view.addSubview(imageView)
         setupImageViewLayout()
-//        setupNavBarButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         setupNavBarButtons()
     }
-    
+        
     private func setupImageViewLayout() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     private func setupNavBarButtons() {
-        
         let likedPictures = UserDefaults.standard.likedPictures()
-        
         let hasLikedPicture = likedPictures.firstIndex(where: {$0.urls == self.picture?.urls}) != nil
-        
-        if hasLikedPicture {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(handleDeleteFromFavorites))
-        } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(handleSaveToFavorites))
-        }
-    
+        navigationItem.rightBarButtonItems = [ hasLikedPicture ? likedBarButtonItem : notLikedBarButtonItem, saveBarButtonItem]
     }
     
     @objc private func handleSaveToFavorites() {
@@ -86,8 +88,16 @@ class DetailViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-
-    
-    
-    
+    @objc private func handleSaveToLocalLibrary() {
+        let alerController = UIAlertController(title: "Save image?", message: "Save image to device?", preferredStyle: .alert)
+        alerController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+            guard let imageToSave = self.imageView.image else { return }
+            UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
+            let alert = UIAlertController(title: "Saved", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }))
+        alerController.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
+        present(alerController, animated: true, completion: nil)
+    }
 }
