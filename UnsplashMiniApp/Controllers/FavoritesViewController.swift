@@ -1,13 +1,13 @@
 //
-//  SavedViewController.swift
+//  FavoritesViewController.swift
 //  UnsplashMiniApp
 //
-//  Created by Maks Kokos on 11.09.2022.
+//  Created by Maks Kokos on 18.09.2022.
 //
 
 import UIKit
 
-class SavedViewController: UICollectionViewController {
+class FavoritesViewController: UICollectionViewController {
     
     private let cellId = "cellId"
     
@@ -30,8 +30,6 @@ class SavedViewController: UICollectionViewController {
     
     }
     
-    // MARK: - UICollectionView Delegate and DataSource methods
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailController = DetailViewController()
         let picture = self.likedPictures[indexPath.item]
@@ -48,21 +46,19 @@ class SavedViewController: UICollectionViewController {
         cell.picture = self.likedPictures[indexPath.row]
         return cell
     }
+
 }
 
-extension SavedViewController: UICollectionViewDelegateFlowLayout {
-
+extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 80, height: 80)
+        let width = view.frame.width / 3
+       return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        UIEdgeInsets(top: 16, left: 0, bottom: 32, right: 0)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        16
-    }
+        
 }
-
 

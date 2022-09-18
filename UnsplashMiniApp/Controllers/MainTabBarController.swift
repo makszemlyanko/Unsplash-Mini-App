@@ -18,7 +18,6 @@ class MainTabBarController: UITabBarController {
         
         setupViewControllers()
         setTabBarAppearance()
-        
         #warning("add bottom padding to tabBar")
     }
     
@@ -32,12 +31,16 @@ class MainTabBarController: UITabBarController {
     }
 
     private func setupViewControllers() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
         let photoController = PhotoViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let savedController = SavedViewController(collectionViewLayout: UICollectionViewFlowLayout())
-
+        let favoritesController = FavoritesViewController(collectionViewLayout: layout)
+        
         viewControllers = [
             createNavController(viewController: photoController, title: "Pictures", image: UIImage(systemName: "photo.fill")),
-            createNavController(viewController: savedController, title: "Favorites", image: UIImage(systemName: "heart.fill"))
+            createNavController(viewController: favoritesController, title: "Favorites", image: UIImage(systemName: "heart.fill"))
         ]
     }
     
@@ -60,9 +63,7 @@ class MainTabBarController: UITabBarController {
         
         tabBar.tintColor = .tabBarItemAccent
         tabBar.unselectedItemTintColor = .tabBarItemLight
-        
     }
-    
     
 }
 

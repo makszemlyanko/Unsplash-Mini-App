@@ -12,17 +12,17 @@ class PhotoViewCell: UICollectionViewCell {
     
     var picture: PhotoResult? {
         didSet {
+            spinner.startAnimating()
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
-            photoImageView.sd_setImage(with: url, completed: nil)
+            self.photoImageView.sd_setImage(with: url, completed: nil)
         }
     }
     
-    #warning("maybe add activity indicator for cell")
+    private let spinner = UIActivityIndicatorView()
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
@@ -31,19 +31,31 @@ class PhotoViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupSpiner()
         setupPhotoImageView()
     }
     
     private func setupPhotoImageView() {
         addSubview(photoImageView)
+        photoImageView.translatesAutoresizingMaskIntoConstraints = false
         photoImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
     }
     
+    private func setupSpiner() {
+        addSubview(spinner)
+        spinner.color = UIColor.tabBarItemAccent
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+        
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 

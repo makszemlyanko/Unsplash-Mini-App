@@ -9,9 +9,9 @@ import UIKit
 
 class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
-    private let cellId = "cellId"
-    
     var networkDataFetcher = DataFetcher()
+    
+    private let cellId = "cellId"
     
     private var previousSearchQuery: Set<String> = UserDefaults.standard.savedSearchQuery()
     
@@ -29,7 +29,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         searchBar(searchController.searchBar, textDidChange: randomSearchQuery())
         setupCollectionView()
     }
-    
+            
     private func randomSearchQuery() -> String {
         self.previousSearchQuery.randomElement() ?? ""
     }
@@ -54,7 +54,10 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             searchBar.autocorrectionType = .yes
-            if searchText != "" && searchText.count > 3 {
+            
+            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
+                
+                if searchResult?.results.count != 0 {
                 do {
                     var listOfSearchQuery = UserDefaults.standard.savedSearchQuery()
                     listOfSearchQuery.insert(searchText)
@@ -63,18 +66,17 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
                 } catch {
                     print("Failed to save data to UserDefaults: ", error)
                 }
-            }
-            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
-                guard let fetchedPictures = searchResult else { return }
-                self?.pictures = fetchedPictures.results
+                }
+        
+                guard let searchResult = searchResult else { return }
+                self?.pictures = searchResult.results
+                
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
             }
         })
     }
-    
-        // MARK: - UICollectionView Delegate and DataSource methods
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailController = DetailViewController()
@@ -90,23 +92,32 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
         let picture = self.pictures[indexPath.item]
+        
+
+        cell.layer.shadowRadius = 6
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.4
+        cell.layer.shadowOffset = CGSize(width: 0, height: 4)    
         cell.picture = picture
+        
+
         return cell
     }
 }
 
 extension PhotoViewController: UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 3 * 16) / 2
         return CGSize(width: width, height: width)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 16, left: 16, bottom: 32, right: 16)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         16
     }
+    
 }
