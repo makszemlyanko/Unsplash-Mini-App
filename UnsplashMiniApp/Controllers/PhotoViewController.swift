@@ -23,15 +23,30 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     private var timer: Timer?
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let rc = UIRefreshControl()
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.tabBarItemAccent]
+        let attributedTitle = NSAttributedString(string: "Refreshing...", attributes: attributes)
+        rc.tintColor = UIColor.tabBarItemAccent
+        rc.attributedTitle = attributedTitle
+        rc.addTarget(self, action: #selector(handlePullToRefresh), for: .valueChanged)
+        return rc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-        searchBar(searchController.searchBar, textDidChange: randomSearchQuery())
+        refreshingRandomSearchRequest()
         setupCollectionView()
     }
-            
-    private func randomSearchQuery() -> String {
-        self.previousSearchQuery.randomElement() ?? ""
+    
+    @objc private func handlePullToRefresh(sender: UIRefreshControl) {
+        refreshingRandomSearchRequest()
+        sender.endRefreshing()
+    }
+    
+    private func refreshingRandomSearchRequest() {
+        searchBar(searchController.searchBar, textDidChange: self.previousSearchQuery.randomElement() ?? "")
     }
     
     // MARK: - Setup SearchBar and CollectionView
@@ -39,6 +54,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     private func setupCollectionView() {
         collectionView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.refreshControl = self.refreshControl
     }
     
     private func setupSearchBar() {
@@ -58,16 +74,16 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
             self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
                 
                 if searchResult?.results.count != 0 {
-                do {
-                    var listOfSearchQuery = UserDefaults.standard.savedSearchQuery()
-                    listOfSearchQuery.insert(searchText)
-                    let searchQuaeryData = try JSONEncoder().encode(listOfSearchQuery)
-                    UserDefaults.standard.setValue(searchQuaeryData, forKey: UserDefaults.previousSearchQueryKey)
-                } catch {
-                    print("Failed to save data to UserDefaults: ", error)
+                    do {
+                        var listOfSearchQuery = UserDefaults.standard.savedSearchQuery()
+                        listOfSearchQuery.insert(searchText)
+                        let searchQuaeryData = try JSONEncoder().encode(listOfSearchQuery)
+                        UserDefaults.standard.setValue(searchQuaeryData, forKey: UserDefaults.previousSearchQueryKey)
+                    } catch {
+                        print("Failed to save data to UserDefaults: ", error)
+                    }
                 }
-                }
-        
+                
                 guard let searchResult = searchResult else { return }
                 self?.pictures = searchResult.results
                 
@@ -92,15 +108,11 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
         let picture = self.pictures[indexPath.item]
-        
-
         cell.layer.shadowRadius = 6
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowOpacity = 0.4
-        cell.layer.shadowOffset = CGSize(width: 0, height: 4)    
+        cell.layer.shadowOffset = CGSize(width: 0, height: 4)   
         cell.picture = picture
-        
-
         return cell
     }
 }
@@ -113,7 +125,7 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 16, left: 16, bottom: 32, right: 16)
+        return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

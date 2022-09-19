@@ -10,22 +10,22 @@ import Foundation
 class NetworkManager {
     
     func request(searchTerm: String, complition: @escaping (Data?, Error?) -> Void) {
-        let param = self.prepareParam(searchTerm: searchTerm)
-        let url = self.url(params: param)
+        let param = self.getParameters(searchTerm: searchTerm)
+        let url = self.getUrl(params: param)
         var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = prepareHeader()
+        request.allHTTPHeaderFields = getHeader()
         request.httpMethod = "get"
         let task = createDataTask(from: request, complition: complition)
         task.resume()
     }
     
-    private func prepareHeader() -> [String: String]? {
+    private func getHeader() -> [String: String]? {
         var headers = [String: String]()
         headers["Authorization"] = "Client-ID FC1bNlKCupC2Z8bK8hPHIdTax4Wbr-lW9apVOKdOOQg"
         return headers
     }
     
-    private func prepareParam(searchTerm: String?) -> [String: String] {
+    private func getParameters(searchTerm: String?) -> [String: String] {
         var param = [String: String]()
         param["query"] = searchTerm
         param["page"] = String(1)
@@ -33,7 +33,7 @@ class NetworkManager {
         return param
     }
     
-    private func url(params: [String: String]) -> URL {
+    private func getUrl(params: [String: String]) -> URL {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.unsplash.com"

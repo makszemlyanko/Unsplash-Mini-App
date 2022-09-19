@@ -24,6 +24,8 @@ class FavoritesViewController: UICollectionViewController {
         self.collectionView.reloadData()
     }
     
+    // MARK: - Setup CollectionView
+    
     private func setupCollectionView() {
         collectionView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: cellId)
@@ -57,7 +59,7 @@ extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 16, left: 0, bottom: 32, right: 0)
+        UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
     }
         
 }

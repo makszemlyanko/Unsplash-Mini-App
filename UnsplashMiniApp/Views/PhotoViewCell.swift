@@ -18,14 +18,13 @@ class PhotoViewCell: UICollectionViewCell {
             self.photoImageView.sd_setImage(with: url, completed: nil)
         }
     }
-    
+
     private let spinner = UIActivityIndicatorView()
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 6
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -47,7 +46,6 @@ class PhotoViewCell: UICollectionViewCell {
     private func setupSpiner() {
         addSubview(spinner)
         spinner.color = UIColor.tabBarItemAccent
-        
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
