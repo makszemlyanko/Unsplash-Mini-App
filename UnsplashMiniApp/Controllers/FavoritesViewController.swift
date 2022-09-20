@@ -28,7 +28,7 @@ class FavoritesViewController: UICollectionViewController {
     
     private func setupCollectionView() {
         collectionView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(FavoritesViewCell.self, forCellWithReuseIdentifier: cellId)
     
     }
     
@@ -44,7 +44,7 @@ class FavoritesViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FavoritesViewCell
         cell.picture = self.likedPictures[indexPath.row]
         return cell
     }

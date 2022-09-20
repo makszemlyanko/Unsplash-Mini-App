@@ -28,7 +28,6 @@ class NetworkManager {
     private func getParameters(searchTerm: String?) -> [String: String] {
         var param = [String: String]()
         param["query"] = searchTerm
-        param["page"] = String(1)
         param["per_page"] = String(30)
         return param
     }

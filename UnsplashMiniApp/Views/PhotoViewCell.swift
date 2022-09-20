@@ -16,6 +16,7 @@ class PhotoViewCell: UICollectionViewCell {
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
             self.photoImageView.sd_setImage(with: url, completed: nil)
+            self.authorLabel.text = picture?.user?.name
         }
     }
 
@@ -25,13 +26,22 @@ class PhotoViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 6
         return imageView
+    }()
+    
+     private let authorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSpiner()
         setupPhotoImageView()
+        setupAuthorLabel()
     }
     
     private func setupPhotoImageView() {
@@ -49,6 +59,14 @@ class PhotoViewCell: UICollectionViewCell {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+    
+    private func setupAuthorLabel() {
+        addSubview(authorLabel)
+        authorLabel.translatesAutoresizingMaskIntoConstraints = false
+        authorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
+        authorLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
+        authorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8).isActive = true
     }
         
     required init?(coder: NSCoder) {

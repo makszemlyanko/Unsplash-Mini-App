@@ -8,7 +8,6 @@
 import Foundation
 
 struct SearchResult: Codable {
-    let total: Int
     let results: [PhotoResult]
 }
 
@@ -16,7 +15,8 @@ struct PhotoResult: Codable {
     let width: Int
     let height: Int
     let urls: [UrlKind.RawValue: String]
-    
+    var user: User?
+
     enum UrlKind: String {
         case raw
         case full
@@ -25,3 +25,9 @@ struct PhotoResult: Codable {
         case thumb
     }
 }
+
+struct User: Codable {
+    var name: String
+}
+
+
