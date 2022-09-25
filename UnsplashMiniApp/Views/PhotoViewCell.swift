@@ -16,7 +16,7 @@ class PhotoViewCell: UICollectionViewCell {
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
             self.photoImageView.sd_setImage(with: url, completed: nil)
-            self.authorLabel.text = picture?.user?.name
+            self.authorLabel.text = self.picture?.user?.name
         }
     }
 

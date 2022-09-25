@@ -22,6 +22,7 @@ class FavoritesViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         self.likedPictures = UserDefaults.standard.likedPictures()
         self.collectionView.reloadData()
+        UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
     }
     
     // MARK: - Setup CollectionView

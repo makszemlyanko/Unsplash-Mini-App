@@ -61,7 +61,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
         definesPresentationContext = true
         navigationItem.searchController = self.searchController
         navigationItem.searchController?.searchBar.tintColor = UIColor.tabBarItemAccent
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
     }

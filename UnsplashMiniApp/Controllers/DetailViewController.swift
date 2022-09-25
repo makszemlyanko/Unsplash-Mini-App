@@ -73,6 +73,12 @@ class DetailViewController: UIViewController {
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(handleDeleteFromFavorites))
+        
+        showNewFavoriteBadge()
+    }
+    
+    @objc private func showNewFavoriteBadge() {
+        UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = "New"
     }
     
     @objc private func handleDeleteFromFavorites() {
@@ -86,6 +92,8 @@ class DetailViewController: UIViewController {
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)
+        
+        UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
     }
     
     @objc private func handleSaveToLocalLibrary() {
