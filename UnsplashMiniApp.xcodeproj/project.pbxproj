@@ -64,16 +64,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		153429E828CF505E00E1FBE8 /* Supporting files */ = {
+		153429E828CF505E00E1FBE8 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */,
+				15B8094828CE5EC300771CDF /* Main.storyboard */,
+				155F735A28CE3119007EEF5C /* Assets.xcassets */,
+				155F735F28CE3119007EEF5C /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		1537AC18290A78E000A4DFAB /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				155F735128CE3117007EEF5C /* AppDelegate.swift */,
 				155F735328CE3117007EEF5C /* SceneDelegate.swift */,
-				15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */,
-				15B8094828CE5EC300771CDF /* Main.storyboard */,
-				155F735A28CE3119007EEF5C /* Assets.xcassets */,
 			);
-			path = "Supporting files";
+			path = Application;
 			sourceTree = "<group>";
 		};
 		155F734528CE3117007EEF5C = {
@@ -97,13 +105,13 @@
 		155F735028CE3117007EEF5C /* UnsplashMiniApp */ = {
 			isa = PBXGroup;
 			children = (
+				1537AC18290A78E000A4DFAB /* Application */,
 				155F736B28CE31B6007EEF5C /* Services */,
 				155F736A28CE31AF007EEF5C /* Helpers */,
 				155F736928CE31A6007EEF5C /* Models */,
 				155F736828CE31A1007EEF5C /* Views */,
 				155F736728CE319A007EEF5C /* Controllers */,
-				153429E828CF505E00E1FBE8 /* Supporting files */,
-				155F735F28CE3119007EEF5C /* Info.plist */,
+				153429E828CF505E00E1FBE8 /* SupportingFiles */,
 			);
 			path = UnsplashMiniApp;
 			sourceTree = "<group>";
@@ -430,7 +438,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 48KB556P8Y;
-				INFOPLIST_FILE = UnsplashMiniApp/Info.plist;
+				INFOPLIST_FILE = UnsplashMiniApp/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -450,7 +458,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 48KB556P8Y;
-				INFOPLIST_FILE = UnsplashMiniApp/Info.plist;
+				INFOPLIST_FILE = UnsplashMiniApp/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
