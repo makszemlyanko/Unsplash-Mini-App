@@ -12,12 +12,12 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
-        setTabBarAppearance()
+        tabBar.tintColor = .label
     }
     
     private func createNavController(viewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
-        navController.navigationBar.tintColor = UIColor.tabBarItemAccent
+        navController.navigationBar.tintColor = .label
         viewController.navigationItem.title = title
         navController.tabBarItem.image = image
         navController.tabBarItem.title = title
@@ -36,11 +36,6 @@ class MainTabBarController: UITabBarController {
             createNavController(viewController: photoController, title: "Pictures", image: UIImage(systemName: "photo.fill")),
             createNavController(viewController: favoritesController, title: "Favorites", image: UIImage(systemName: "heart.fill"))
         ]
-    }
-    
-    private func setTabBarAppearance() {
-        tabBar.tintColor = .tabBarItemAccent
-        tabBar.unselectedItemTintColor = .tabBarItemLight
     }
     
 }

@@ -55,7 +55,7 @@ class PhotoViewCell: UICollectionViewCell {
     
     private func setupSpiner() {
         addSubview(spinner)
-        spinner.color = UIColor.tabBarItemAccent
+        spinner.color = UIColor.label
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

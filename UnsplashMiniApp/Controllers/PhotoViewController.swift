@@ -25,9 +25,9 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     private lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.tabBarItemAccent]
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         let attributedTitle = NSAttributedString(string: "Refreshing...", attributes: attributes)
-        rc.tintColor = UIColor.tabBarItemAccent
+        rc.tintColor = UIColor.label
         rc.attributedTitle = attributedTitle
         rc.addTarget(self, action: #selector(handlePullToRefresh), for: .valueChanged)
         return rc
@@ -52,7 +52,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     // MARK: - Setup SearchBar and CollectionView
     
     private func setupCollectionView() {
-        collectionView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.refreshControl = self.refreshControl
     }
@@ -60,7 +60,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     private func setupSearchBar() {
         definesPresentationContext = true
         navigationItem.searchController = self.searchController
-        navigationItem.searchController?.searchBar.tintColor = UIColor.tabBarItemAccent
+        navigationItem.searchController?.searchBar.tintColor = UIColor.label
         navigationItem.hidesSearchBarWhenScrolling = true
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
@@ -107,11 +107,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
-        let picture = self.pictures[indexPath.item]
-        cell.layer.shadowRadius = 6
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.4
-        cell.layer.shadowOffset = CGSize(width: 0, height: 4)   
+        let picture = self.pictures[indexPath.item] 
         cell.picture = picture
         return cell
     }
@@ -131,5 +127,7 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         16
     }
+    
+    
     
 }
