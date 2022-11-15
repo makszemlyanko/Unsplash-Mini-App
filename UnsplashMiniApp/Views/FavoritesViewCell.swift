@@ -32,14 +32,14 @@ final class FavoritesViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupFavoriteImageView()
+        configureFavoriteImageView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupFavoriteImageView() {
+    private func configureFavoriteImageView() {
         addSubview(favoriteImageView)
         let favoriteImageViewConstraints = [
             favoriteImageView.topAnchor.constraint(equalTo: self.topAnchor),

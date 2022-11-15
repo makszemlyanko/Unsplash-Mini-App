@@ -50,16 +50,16 @@ final class PhotoViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupActivityIndicator()
-        setupPhotoImageView()
-        setupAuthorLabel()
+        configureActivityIndicator()
+        configurePhotoImageView()
+        configureAuthorLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupPhotoImageView() {
+    private func configurePhotoImageView() {
         addSubview(photoImageView)
         let photoImageViewConstraints = [
             photoImageView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -70,7 +70,7 @@ final class PhotoViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(photoImageViewConstraints)
     }
     
-    private func setupActivityIndicator() {
+    private func configureActivityIndicator() {
         addSubview(photoActivityIndicator)
         let photoActivityIndicatorConstraints = [
             photoActivityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -79,7 +79,7 @@ final class PhotoViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(photoActivityIndicatorConstraints)
     }
     
-    private func setupAuthorLabel() {
+    private func configureAuthorLabel() {
         addSubview(authorLabel)
         let authorLabelConstraints = [
             authorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
