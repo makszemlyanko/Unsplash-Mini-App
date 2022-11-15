@@ -11,12 +11,10 @@ struct SearchResult: Codable {
     let results: [PhotoResult]
 }
 
-struct PhotoResult: Codable {
-    let width: Int
-    let height: Int
-    let urls: [UrlKind.RawValue: String]
-    var user: User?
 
+
+struct PhotoResult: Codable {
+    
     enum UrlKind: String {
         case raw
         case full
@@ -24,10 +22,16 @@ struct PhotoResult: Codable {
         case small
         case thumb
     }
+    
+    let urls: [UrlKind.RawValue: String]
+    var user: User?
+    let downloads: Int?
 }
+    
 
 struct User: Codable {
-    var name: String
+    var username: String?
+    var name: String?
+    var total_photos: Int?
 }
-
 

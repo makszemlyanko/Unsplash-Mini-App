@@ -36,7 +36,9 @@ class NetworkManager {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.unsplash.com"
-        components.path = "/search/photos/"
+        
+        
+        components.path = "/search/photos"
         components.queryItems = params.map { URLQueryItem(name: $0, value: $1)}
         return components.url!
     }

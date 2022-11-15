@@ -72,7 +72,7 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
             searchBar.autocorrectionType = .yes
             
             self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
-                
+
                 if searchResult?.results.count != 0 {
                     do {
                         var listOfSearchQuery = UserDefaults.standard.savedSearchQuery()
@@ -83,10 +83,10 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
                         print("Failed to save data to UserDefaults: ", error)
                     }
                 }
-                
+
                 guard let searchResult = searchResult else { return }
                 self?.pictures = searchResult.results
-                
+
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }

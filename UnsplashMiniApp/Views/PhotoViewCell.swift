@@ -15,8 +15,10 @@ class PhotoViewCell: UICollectionViewCell {
             spinner.startAnimating()
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
-            self.photoImageView.sd_setImage(with: url, completed: nil)
-            self.authorLabel.text = self.picture?.user?.name
+            DispatchQueue.main.async {
+                self.photoImageView.sd_setImage(with: url, completed: nil)
+                self.authorLabel.text = self.picture?.user?.name
+            }
         }
     }
 

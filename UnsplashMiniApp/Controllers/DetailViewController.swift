@@ -13,10 +13,18 @@ class DetailViewController: UIViewController {
         didSet {
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
-            imageView.sd_setImage(with: url, completed: nil)
-            imageView.contentMode = .scaleAspectFit
+            DispatchQueue.main.async {
+                self.imageView.sd_setImage(with: url, completed: nil)
+                self.authorLabel.text = self.picture?.user?.name
+                self.locationLabel.text = self.picture?.user?.username
+                self.totalPhotosLabel.text = "Total photos: \(String(describing: self.picture?.user?.total_photos ?? 0))"
+            }
         }
     }
+
+    
+    
+
     
     private lazy var likedBarButtonItem: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(handleDeleteFromFavorites))
@@ -32,13 +40,51 @@ class DetailViewController: UIViewController {
     
     private var likedPictures = UserDefaults.standard.likedPictures()
     
-    private let imageView = UIImageView()
+    
+    
+    
+    
+    private let imageView: UIImageView = {
+       let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    private let authorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 24)
+        return label
+    }()
+    
+    private let locationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        return label
+    }()
+    
+    private let totalPhotosLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        return label
+    }()
+    
+    var stackView: UIStackView = {
+       let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.distribution = .equalSpacing
+        return stack
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        view.addSubview(imageView)
-        setupImageViewLayout()
+        configureImageView()
+        configureStackView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,12 +92,35 @@ class DetailViewController: UIViewController {
         setupNavBarButtons()
     }
         
-    private func setupImageViewLayout() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+
+    private func configureImageView() {
+        view.addSubview(imageView)
+        
+        let imageViewConstraints = [
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 400)
+        ]
+        
+        NSLayoutConstraint.activate(imageViewConstraints)
+    }
+    
+    private func configureStackView() {
+        view.addSubview(stackView)
+        
+        let stackViewConstraints = [
+            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            stackView.widthAnchor.constraint(equalToConstant: 400),
+            stackView.heightAnchor.constraint(equalToConstant: 100)
+        ]
+        
+        NSLayoutConstraint.activate(stackViewConstraints)
+        
+        stackView.addArrangedSubview(authorLabel)
+        stackView.addArrangedSubview(locationLabel)
+        stackView.addArrangedSubview(totalPhotosLabel)
     }
     
     private func setupNavBarButtons() {

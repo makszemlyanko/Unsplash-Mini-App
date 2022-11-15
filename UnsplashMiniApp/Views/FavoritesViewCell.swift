@@ -14,7 +14,9 @@ class FavoritesViewCell: UICollectionViewCell {
         didSet {
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
-            self.favoriteImageView.sd_setImage(with: url, completed: nil)
+            DispatchQueue.main.async {
+                self.favoriteImageView.sd_setImage(with: url, completed: nil)
+            }
         }
     }
     

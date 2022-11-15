@@ -21,8 +21,10 @@ class FavoritesViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.likedPictures = UserDefaults.standard.likedPictures()
-        self.collectionView.reloadData()
-        UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
+        }
     }
     
     // MARK: - Setup CollectionView

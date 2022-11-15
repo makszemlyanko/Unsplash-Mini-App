@@ -7,17 +7,17 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+final class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
-        tabBar.tintColor = .label
+        tabBar.tintColor = .systemRed
     }
     
     private func createNavController(viewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
-        navController.navigationBar.tintColor = .label
+        navController.navigationBar.tintColor = .systemRed
         viewController.navigationItem.title = title
         navController.tabBarItem.image = image
         navController.tabBarItem.title = title
