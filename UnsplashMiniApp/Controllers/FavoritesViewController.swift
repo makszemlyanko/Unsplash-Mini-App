@@ -7,62 +7,74 @@
 
 import UIKit
 
-class FavoritesViewController: UICollectionViewController {
+final class FavoritesViewController: UIViewController {
     
-    private let cellId = "cellId"
+    private var likedPictures = UserDefaults.standard.getlikedPictures()
     
-    private var likedPictures = UserDefaults.standard.likedPictures()
+    private let favoritesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(FavoritesViewCell.self, forCellWithReuseIdentifier: FavoritesViewCell.cellId)
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
+        setupFavoritesCollectionView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        favoritesCollectionView.frame = view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.likedPictures = UserDefaults.standard.likedPictures()
+        self.likedPictures = UserDefaults.standard.getlikedPictures()
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            self.favoritesCollectionView.reloadData()
             UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
         }
     }
     
-    // MARK: - Setup CollectionView
-    
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .systemBackground
-        collectionView.register(FavoritesViewCell.self, forCellWithReuseIdentifier: cellId)
+    private func setupFavoritesCollectionView() {
+        view.addSubview(favoritesCollectionView)
+        favoritesCollectionView.dataSource = self
+        favoritesCollectionView.delegate = self
+    }
+}
+
+extension FavoritesViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.likedPictures.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoritesViewCell.cellId, for: indexPath) as? FavoritesViewCell else { return UICollectionViewCell() }
+        cell.picture = self.likedPictures[indexPath.row]
+        return cell
+    }
+}
+
+extension FavoritesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailController = DetailViewController()
         let picture = self.likedPictures[indexPath.item]
         detailController.picture = picture
         navigationController?.pushViewController(detailController, animated: true)
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.likedPictures.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FavoritesViewCell
-        cell.picture = self.likedPictures[indexPath.row]
-        return cell
-    }
-
 }
 
 extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width / 3
-       return CGSize(width: width, height: width)
+        return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
     }
-        
 }
-

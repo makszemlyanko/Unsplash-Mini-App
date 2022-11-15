@@ -20,7 +20,6 @@
 		155F736E28CE3200007EEF5C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F736D28CE3200007EEF5C /* MainTabBarController.swift */; };
 		155F737D28CE371B007EEF5C /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F737C28CE371B007EEF5C /* PhotoViewController.swift */; };
 		155F7A9728D9A68700048D22 /* FavoritesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F7A9628D9A68700048D22 /* FavoritesViewCell.swift */; };
-		15B8094928CE5EC300771CDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B8094828CE5EC300771CDF /* Main.storyboard */; };
 		15B8094D28CE5EE500771CDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */; };
 		15DEC2A228E072A900D9994E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DEC2A128E072A900D9994E /* UIApplication.swift */; };
 		9E5A80CE2F9DFD1CC3F03406 /* Pods_UnsplashMiniApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3D9672E421CD012DE1E3BA /* Pods_UnsplashMiniApp.framework */; };
@@ -42,7 +41,6 @@
 		155F736D28CE3200007EEF5C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		155F737C28CE371B007EEF5C /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		155F7A9628D9A68700048D22 /* FavoritesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewCell.swift; sourceTree = "<group>"; };
-		15B8094828CE5EC300771CDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15DEC2A128E072A900D9994E /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		C92E087128C582CAC6A00CAD /* Pods-UnsplashMiniApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashMiniApp.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashMiniApp/Pods-UnsplashMiniApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				15B8094C28CE5EE500771CDF /* LaunchScreen.storyboard */,
-				15B8094828CE5EC300771CDF /* Main.storyboard */,
 				155F735A28CE3119007EEF5C /* Assets.xcassets */,
 				155F735F28CE3119007EEF5C /* Info.plist */,
 			);
@@ -238,7 +235,6 @@
 			files = (
 				15B8094D28CE5EE500771CDF /* LaunchScreen.storyboard in Resources */,
 				155F735B28CE3119007EEF5C /* Assets.xcassets in Resources */,
-				15B8094928CE5EC300771CDF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

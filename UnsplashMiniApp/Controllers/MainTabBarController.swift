@@ -15,6 +15,13 @@ final class MainTabBarController: UITabBarController {
         tabBar.tintColor = .systemRed
     }
     
+    private func setupViewControllers() {
+        setViewControllers([
+            createNavController(viewController: PhotoViewController(), title: "Photo", image: UIImage(systemName: "photo.fill")),
+            createNavController(viewController: FavoritesViewController(), title: "Favorites", image: UIImage(systemName: "heart.fill"))
+        ], animated: true)
+    }
+    
     private func createNavController(viewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
         navController.navigationBar.tintColor = .systemRed
@@ -23,20 +30,4 @@ final class MainTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         return navController
     }
-
-    private func setupViewControllers() {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        
-        let photoController = PhotoViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let favoritesController = FavoritesViewController(collectionViewLayout: layout)
-        
-        viewControllers = [
-            createNavController(viewController: photoController, title: "Pictures", image: UIImage(systemName: "photo.fill")),
-            createNavController(viewController: favoritesController, title: "Favorites", image: UIImage(systemName: "heart.fill"))
-        ]
-    }
-    
 }
-

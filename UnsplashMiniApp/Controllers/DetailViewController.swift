@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
-    var picture: PhotoResult? {
+    var picture: Photo? {
         didSet {
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
@@ -21,10 +21,8 @@ class DetailViewController: UIViewController {
             }
         }
     }
-
     
-    
-
+    private var likedPictures = UserDefaults.standard.getlikedPictures()
     
     private lazy var likedBarButtonItem: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(handleDeleteFromFavorites))
@@ -38,14 +36,8 @@ class DetailViewController: UIViewController {
         UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveToLocalLibrary))
     }()
     
-    private var likedPictures = UserDefaults.standard.likedPictures()
-    
-    
-    
-    
-    
     private let imageView: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
@@ -71,14 +63,13 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    var stackView: UIStackView = {
-       let stack = UIStackView()
+    private var stackView: UIStackView = {
+        let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.distribution = .equalSpacing
         return stack
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,31 +82,26 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         setupNavBarButtons()
     }
-        
-
+    
     private func configureImageView() {
         view.addSubview(imageView)
-        
         let imageViewConstraints = [
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
             imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 400)
         ]
-        
         NSLayoutConstraint.activate(imageViewConstraints)
     }
     
     private func configureStackView() {
         view.addSubview(stackView)
-        
         let stackViewConstraints = [
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
             stackView.widthAnchor.constraint(equalToConstant: 400),
             stackView.heightAnchor.constraint(equalToConstant: 100)
         ]
-        
         NSLayoutConstraint.activate(stackViewConstraints)
         
         stackView.addArrangedSubview(authorLabel)
@@ -124,25 +110,22 @@ class DetailViewController: UIViewController {
     }
     
     private func setupNavBarButtons() {
-        let likedPictures = UserDefaults.standard.likedPictures()
+        let likedPictures = UserDefaults.standard.getlikedPictures()
         let hasLikedPicture = likedPictures.firstIndex(where: {$0.urls == self.picture?.urls}) != nil
         navigationItem.rightBarButtonItems = [ hasLikedPicture ? likedBarButtonItem : notLikedBarButtonItem, saveBarButtonItem]
     }
     
     @objc private func handleSaveToFavorites() {
         guard let picture = self.picture else { return }
-        
         do {
-            var listOfPictures = UserDefaults.standard.likedPictures()
+            var listOfPictures = UserDefaults.standard.getlikedPictures()
             listOfPictures.append(picture)
             let picturesData = try JSONEncoder().encode(listOfPictures)
             UserDefaults.standard.setValue(picturesData, forKey: UserDefaults.likedPicturesKey)
         } catch {
             print("Failed to save picture to UserDefaults :", error)
         }
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(handleDeleteFromFavorites))
-        
         showNewFavoriteBadge()
     }
     
@@ -152,7 +135,6 @@ class DetailViewController: UIViewController {
     
     @objc private func handleDeleteFromFavorites() {
         guard let picture = self.picture else { return }
-        
         let alertController = UIAlertController(title: "Remove Picture", message: "Remove this picture from Favorites?", preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (_) in
             UserDefaults.standard.deletePicture(picture: picture)
@@ -161,7 +143,6 @@ class DetailViewController: UIViewController {
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)
-        
         UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
     }
     

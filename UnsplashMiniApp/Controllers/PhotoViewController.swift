@@ -7,17 +7,15 @@
 
 import UIKit
 
-class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
+final class PhotoViewController: UIViewController {
     
-    var networkDataFetcher = DataFetcher()
+    private var networkDataFetcher = DataFetcher()
     
-    private let cellId = "cellId"
+    private var pictures = [Photo]()
     
-    private var previousSearchQuery: Set<String> = UserDefaults.standard.savedSearchQuery()
+    private var previousSearchQuery: Set<String> = UserDefaults.standard.getSavedSearchQuery()
     
-    private var pictures = [PhotoResult]()
-    
-    private var likedPictures = UserDefaults.standard.likedPictures()
+    private var likedPictures = UserDefaults.standard.getlikedPictures()
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -25,19 +23,48 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     
     private lazy var refreshControl: UIRefreshControl = {
         let rc = UIRefreshControl()
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.systemGray]
         let attributedTitle = NSAttributedString(string: "Refreshing...", attributes: attributes)
-        rc.tintColor = UIColor.label
+        rc.tintColor = UIColor.systemGray
         rc.attributedTitle = attributedTitle
         rc.addTarget(self, action: #selector(handlePullToRefresh), for: .valueChanged)
         return rc
+    }()
+    
+    private let photoCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: PhotoViewCell.cellId)
+        return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
         refreshingRandomSearchRequest()
-        setupCollectionView()
+        setupPhotoCollectionView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        photoCollectionView.frame = view.bounds
+    }
+    
+    private func setupPhotoCollectionView() {
+        view.addSubview(photoCollectionView)
+        photoCollectionView.dataSource = self
+        photoCollectionView.delegate = self
+        photoCollectionView.refreshControl = self.refreshControl
+    }
+    
+    private func setupSearchBar() {
+        definesPresentationContext = true
+        navigationItem.searchController = self.searchController
+        navigationItem.searchController?.searchBar.tintColor = UIColor.systemRed
+        navigationItem.hidesSearchBarWhenScrolling = true
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.searchBar.delegate = self
     }
     
     @objc private func handlePullToRefresh(sender: UIRefreshControl) {
@@ -48,73 +75,31 @@ class PhotoViewController: UICollectionViewController, UISearchBarDelegate {
     private func refreshingRandomSearchRequest() {
         searchBar(searchController.searchBar, textDidChange: self.previousSearchQuery.randomElement() ?? "")
     }
-    
-    // MARK: - Setup SearchBar and CollectionView
-    
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .systemBackground
-        collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.refreshControl = self.refreshControl
-    }
-    
-    private func setupSearchBar() {
-        definesPresentationContext = true
-        navigationItem.searchController = self.searchController
-        navigationItem.searchController?.searchBar.tintColor = UIColor.label
-        navigationItem.hidesSearchBarWhenScrolling = true
-        self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.searchBar.delegate = self
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            searchBar.autocorrectionType = .yes
-            
-            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResult) in
+}
 
-                if searchResult?.results.count != 0 {
-                    do {
-                        var listOfSearchQuery = UserDefaults.standard.savedSearchQuery()
-                        listOfSearchQuery.insert(searchText)
-                        let searchQuaeryData = try JSONEncoder().encode(listOfSearchQuery)
-                        UserDefaults.standard.setValue(searchQuaeryData, forKey: UserDefaults.previousSearchQueryKey)
-                    } catch {
-                        print("Failed to save data to UserDefaults: ", error)
-                    }
-                }
-
-                guard let searchResult = searchResult else { return }
-                self?.pictures = searchResult.results
-
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
-            }
-        })
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailController = DetailViewController()
-        let picture = self.pictures[indexPath.item]
-        detailController.picture = picture
-        navigationController?.pushViewController(detailController, animated: true)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension PhotoViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.pictures.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoViewCell
-        let picture = self.pictures[indexPath.item] 
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoViewCell.cellId, for: indexPath) as? PhotoViewCell else { return UICollectionViewCell() }
+        let picture = self.pictures[indexPath.item]
         cell.picture = picture
         return cell
     }
 }
 
+extension PhotoViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailController = DetailViewController()
+        let picture = self.pictures[indexPath.item]
+        detailController.picture = picture
+        navigationController?.pushViewController(detailController, animated: true)
+    }
+}
+
 extension PhotoViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 3 * 16) / 2
         return CGSize(width: width, height: width)
@@ -127,7 +112,30 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         16
     }
-    
-    
-    
+}
+
+extension PhotoViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            searchBar.autocorrectionType = .yes
+            self.networkDataFetcher.fetchPhotos(searchTerm: searchText) { [weak self] (searchResult) in
+                if searchResult?.results.count != 0 {
+                    do {
+                        var listOfSearchQuery = UserDefaults.standard.getSavedSearchQuery()
+                        listOfSearchQuery.insert(searchText)
+                        let searchQuaeryData = try JSONEncoder().encode(listOfSearchQuery)
+                        UserDefaults.standard.setValue(searchQuaeryData, forKey: UserDefaults.previousSearchQueryKey)
+                    } catch {
+                        print("Failed to save data to UserDefaults: ", error)
+                    }
+                }
+                guard let searchResult = searchResult else { return }
+                self?.pictures = searchResult.results
+                DispatchQueue.main.async {
+                    self?.photoCollectionView.reloadData()
+                }
+            }
+        })
+    }
 }

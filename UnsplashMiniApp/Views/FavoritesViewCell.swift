@@ -8,9 +8,11 @@
 import UIKit
 import SDWebImage
 
-class FavoritesViewCell: UICollectionViewCell {
+final class FavoritesViewCell: UICollectionViewCell {
     
-    var picture: PhotoResult? {
+    static let cellId = "FavoritesViewCell"
+    
+    var picture: Photo? {
         didSet {
             let photoUrl = picture?.urls["regular"]
             guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
@@ -22,6 +24,7 @@ class FavoritesViewCell: UICollectionViewCell {
     
     private let favoriteImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -29,21 +32,21 @@ class FavoritesViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupFavoriteImageView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupFavoriteImageView() {
         addSubview(favoriteImageView)
-        favoriteImageView.translatesAutoresizingMaskIntoConstraints = false
-        favoriteImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        favoriteImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        favoriteImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        favoriteImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        let favoriteImageViewConstraints = [
+            favoriteImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            favoriteImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            favoriteImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            favoriteImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        ]
+        NSLayoutConstraint.activate(favoriteImageViewConstraints)
     }
 }

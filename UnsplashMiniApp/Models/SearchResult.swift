@@ -7,31 +7,26 @@
 
 import Foundation
 
-struct SearchResult: Codable {
-    let results: [PhotoResult]
+enum UrlKind: String {
+    case raw
+    case full
+    case regular
+    case small
+    case thumb
 }
 
+struct SearchResult: Codable {
+    let results: [Photo]
+}
 
-
-struct PhotoResult: Codable {
-    
-    enum UrlKind: String {
-        case raw
-        case full
-        case regular
-        case small
-        case thumb
-    }
-    
+struct Photo: Codable {
     let urls: [UrlKind.RawValue: String]
     var user: User?
     let downloads: Int?
 }
     
-
 struct User: Codable {
     var username: String?
     var name: String?
     var total_photos: Int?
 }
-

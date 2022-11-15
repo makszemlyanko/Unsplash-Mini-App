@@ -7,17 +7,16 @@
 
 import Foundation
 
-class DataFetcher {
+final class DataFetcher {
     
     var networkService = NetworkManager()
     
-    func fetchImages(searchTerm: String, complition: @escaping (SearchResult?) -> ()) {
+    func fetchPhotos(searchTerm: String, complition: @escaping (SearchResult?) -> ()) {
         networkService.request(searchTerm: searchTerm) { (data, error) in
             if let error = error {
-                print("Failed to fetch images: ", error)
+                print("Failed to fetch photos: ", error.localizedDescription)
                 complition(nil)
             }
-            
             let decode = self.decodeJSON(type: SearchResult.self, from: data)
             complition(decode)
         }
@@ -26,7 +25,6 @@ class DataFetcher {
     private func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
         let decoder = JSONDecoder()
         guard let data = from else { return nil }
-        
         do {
             let objects = try decoder.decode(type.self, from: data)
             return objects
