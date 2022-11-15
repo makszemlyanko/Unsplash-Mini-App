@@ -48,5 +48,3 @@ extension UserDefaults {
         return getSavedSearchQuery()
     }
 }
-
-

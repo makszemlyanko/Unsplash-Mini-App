@@ -9,6 +9,8 @@ import UIKit
 
 final class FavoritesViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private var likedPictures = UserDefaults.standard.getlikedPictures()
     
     private let favoritesCollectionView: UICollectionView = {
@@ -20,6 +22,8 @@ final class FavoritesViewController: UIViewController {
         collectionView.register(FavoritesViewCell.self, forCellWithReuseIdentifier: FavoritesViewCell.cellId)
         return collectionView
     }()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +44,16 @@ final class FavoritesViewController: UIViewController {
         }
     }
     
+    // MARK: - Collection View Configuration
+    
     private func setupFavoritesCollectionView() {
         view.addSubview(favoritesCollectionView)
         favoritesCollectionView.dataSource = self
         favoritesCollectionView.delegate = self
     }
 }
+
+// MARK: - Data Source and Delegate Extensions
 
 extension FavoritesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

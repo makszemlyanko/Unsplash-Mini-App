@@ -9,6 +9,8 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var picture: Photo? {
         didSet {
             let photoUrl = picture?.urls["regular"]
@@ -71,6 +73,8 @@ final class DetailViewController: UIViewController {
         return stack
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -82,6 +86,8 @@ final class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         setupNavBarButtons()
     }
+    
+    //MARK: - Views Configuration
     
     private func configureImageView() {
         view.addSubview(imageView)
@@ -108,6 +114,8 @@ final class DetailViewController: UIViewController {
         stackView.addArrangedSubview(locationLabel)
         stackView.addArrangedSubview(totalPhotosLabel)
     }
+    
+    // MARK: - NavBar Buttons and TabBar Badge Logic
     
     private func setupNavBarButtons() {
         let likedPictures = UserDefaults.standard.getlikedPictures()

@@ -9,6 +9,8 @@ import UIKit
 
 final class PhotoViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private var networkDataFetcher = DataFetcher()
     
     private var pictures = [Photo]()
@@ -39,6 +41,8 @@ final class PhotoViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
@@ -50,6 +54,8 @@ final class PhotoViewController: UIViewController {
         super.viewDidLayoutSubviews()
         photoCollectionView.frame = view.bounds
     }
+    
+    // MARK: - Collection View Configuration
     
     private func setupPhotoCollectionView() {
         view.addSubview(photoCollectionView)
@@ -76,6 +82,8 @@ final class PhotoViewController: UIViewController {
         searchBar(searchController.searchBar, textDidChange: self.previousSearchQuery.randomElement() ?? "")
     }
 }
+
+// MARK: - Data Source and Delegate Extensions
 
 extension PhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
