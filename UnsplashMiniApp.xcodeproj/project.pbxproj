@@ -142,7 +142,6 @@
 		155F736A28CE31AF007EEF5C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				15342A1928D1BE6700E1FBE8 /* UserDefaults.swift */,
 				15DEC2A128E072A900D9994E /* UIApplication.swift */,
 			);
 			path = Helpers;
@@ -151,10 +150,27 @@
 		155F736B28CE31B6007EEF5C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				15F6B4B12924E29F003F4AA8 /* DataPersistence */,
+				15F6B4B02924E291003F4AA8 /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		15F6B4B02924E291003F4AA8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
 				153429F028CF659D00E1FBE8 /* NetworkManager.swift */,
 				153429F328CF68D900E1FBE8 /* DataFetcher.swift */,
 			);
-			path = Services;
+			path = Network;
+			sourceTree = "<group>";
+		};
+		15F6B4B12924E29F003F4AA8 /* DataPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				15342A1928D1BE6700E1FBE8 /* UserDefaults.swift */,
+			);
+			path = DataPersistence;
 			sourceTree = "<group>";
 		};
 		7E8B384FF44FF5BC18A06B55 /* Frameworks */ = {
