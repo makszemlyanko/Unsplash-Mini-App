@@ -17,7 +17,7 @@ final class MainTabBarController: UITabBarController {
     
     private func setupViewControllers() {
         setViewControllers([
-            createNavController(viewController: PhotoViewController(), title: "Photo", image: UIImage(systemName: "photo.fill")),
+            createNavController(viewController: PhotoViewController(), title: "Photos", image: UIImage(systemName: "photo.fill")),
             createNavController(viewController: FavoritesViewController(), title: "Favorites", image: UIImage(systemName: "heart.fill"))
         ], animated: true)
     }
