@@ -4,6 +4,28 @@
  Requests previously entered into the search are saved in UserDefaults and are unloaded from there randomly when the application starts or if you do a "pull-refresh".
 
 # Overview
+ <table>
+    <thead>
+        <tr>
+            <th>Search</th>
+            <th>Save</th>
+            <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <img width="250" src="Resources/LauncScreen.gif">
+            </td>
+            <td>
+                <img width="250" src="Resources/Search.gif">
+            </td>
+                        <td>
+                <img width="250" src="Resources/Sorting.gif">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 
 
