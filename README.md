@@ -15,26 +15,17 @@
     <tbody>
         <tr>
             <td>
-                <img width="250" src="Resources/LauncScreen.gif">
-            </td>
-            <td>
                 <img width="250" src="Resources/Search.gif">
             </td>
+            <td>
+                <img width="250" src="Resources/Save.gif">
+            </td>
                         <td>
-                <img width="250" src="Resources/Sorting.gif">
+                <img width="250" src="Resources/Download.gif">
             </td>
         </tr>
     </tbody>
 </table>
-
-
-
-
-
-
-
-
-
 
 # Technologies
   * Swift 5
