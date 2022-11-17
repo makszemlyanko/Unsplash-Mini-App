@@ -15,13 +15,13 @@
     <tbody>
         <tr>
             <td>
-                <img width="250" src="Resources/Search.gif">
+                <img width="248" src="Resources/Search.gif">
             </td>
             <td>
-                <img width="250" src="Resources/Save.gif">
+                <img width="248" src="Resources/Save.gif">
             </td>
                         <td>
-                <img width="250" src="Resources/Download.gif">
+                <img width="248" src="Resources/Download.gif">
             </td>
         </tr>
     </tbody>
