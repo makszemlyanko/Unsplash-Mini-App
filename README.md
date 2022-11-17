@@ -8,7 +8,7 @@
     <thead>
         <tr>
             <th>Search</th>
-            <th>Save</th>
+            <th>Save and Remove</th>
             <th>Download</th>
         </tr>
     </thead>
