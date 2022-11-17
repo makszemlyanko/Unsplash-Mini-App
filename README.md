@@ -34,6 +34,7 @@
   * Auto Layout (programmatically)
   * URLSession
   * UserDefaults
+  * CocoaPods
   * <a href="https://github.com/SDWebImage/SDWebImage">SDWebImage</a>
   * <a href="https://unsplash.com/documentation">API</a>
   
