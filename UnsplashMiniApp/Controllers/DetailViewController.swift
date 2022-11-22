@@ -19,7 +19,7 @@ final class DetailViewController: UIViewController {
                 self.imageView.sd_setImage(with: url, completed: nil)
                 self.authorLabel.text = self.picture?.user?.name
                 self.locationLabel.text = self.picture?.user?.username
-                self.totalPhotosLabel.text = "Total photos: \(String(describing: self.picture?.user?.total_photos ?? 0))"
+                self.totalPhotosLabel.text = "Total photos: \(String(describing: self.picture?.user?.totalPhotos ?? 0))"
             }
         }
     }
@@ -143,7 +143,7 @@ final class DetailViewController: UIViewController {
     
     @objc private func handleDeleteFromFavorites() {
         guard let picture = self.picture else { return }
-        let alertController = UIAlertController(title: "Remove Picture", message: "Remove this picture from Favorites?", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Remove Photo", message: "Remove this photo from Favorites?", preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (_) in
             UserDefaults.standard.deletePicture(picture: picture)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(self.handleSaveToFavorites))
@@ -155,7 +155,7 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func handleSaveToLocalLibrary() {
-        let alerController = UIAlertController(title: "Save image?", message: "Save image to device?", preferredStyle: .alert)
+        let alerController = UIAlertController(title: "Save photo?", message: "Save photo to device?", preferredStyle: .alert)
         alerController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
             guard let imageToSave = self.imageView.image else { return }
             UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)

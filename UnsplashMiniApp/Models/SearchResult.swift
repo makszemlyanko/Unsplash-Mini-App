@@ -28,5 +28,5 @@ struct Photo: Codable {
 struct User: Codable {
     var username: String?
     var name: String?
-    var total_photos: Int?
+    var totalPhotos: Int?
 }
